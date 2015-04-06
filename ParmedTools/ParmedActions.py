@@ -2122,7 +2122,6 @@ class deleteDihedral(Action):
         # deleting_dihedrals now contains all of our dihedral indexes
         while deleting_dihedrals:
             idx = deleting_dihedrals.pop()
-            self.parm.dihedrals[idx].delete()
             del self.parm.dihedrals[idx]
         return total_diheds
 

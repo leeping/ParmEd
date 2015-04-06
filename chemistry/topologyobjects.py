@@ -3521,14 +3521,12 @@ class TrackedList(list):
             indices = [item]
 
         for index in indices:
-            try:
+            if hasattr(self[index], '_idx'):
                 self[index]._idx = -1
-            except AttributeError:
-                pass
-            try:
+            if hasattr(self[index], 'list'):
                 self[index].list = None
-            except AttributeError:
-                pass
+            if hasattr(self[index], 'delete'):
+                self[index].delete()
 
         return list.__delitem__(self, item)
 
