@@ -26,7 +26,7 @@ class BondParam(object):
             self.type = BondType(float(rk), float(req))
 
     def __str__(self):
-        return '%s-%s   %8.3f  %6.3f' % (self.atype1.ljust(2),
+        return '%s-%s   %10.5f  %8.5f' % (self.atype1.ljust(2),
                 self.atype2.ljust(2), self.type.k, self.type.req)
 
     def __eq__(self, other):
@@ -52,7 +52,7 @@ class AngleParam(object):
             self.type = AngleType(float(thetk), float(theteq))
 
     def __str__(self):
-        return '%s-%s-%s   %8.3f  %6.3f' % (self.atype1.ljust(2),
+        return '%s-%s-%s   %10.5f  %8.5f' % (self.atype1.ljust(2),
                 self.atype2.ljust(2), self.atype3.ljust(2), self.type.k,
                 self.type.theteq)
 
@@ -89,16 +89,16 @@ class _DihedralTerm(object):
         if self.dihtype == 'improper' or not multiterm:
             return str(self)
         else:
-            return '%4i %8.3f %8.3f %5.1f    SCEE=%s SCNB=%s' % (self.idivf,
+            return '%4i %10.5f %10.5f %5.1f    SCEE=%s SCNB=%s' % (self.idivf,
                 self.type.phi_k * self.idivf, self.type.phase,
                 -self.type.per, self.type.scee, self.type.scnb)
          
     def __str__(self):
         if self.dihtype == 'improper':
-            return '%8.3f %8.3f %5.1f' % (self.type.phi_k, self.type.phase,
+            return '%10.5f %10.5f %5.1f' % (self.type.phi_k, self.type.phase,
                                           self.type.per)
         else:
-            return '%4i %8.3f %8.3f %5.1f    SCEE=%s SCNB=%s' % (self.idivf,
+            return '%4i %10.5f %10.5f %5.1f    SCEE=%s SCNB=%s' % (self.idivf,
                     self.type.phi_k * self.idivf, self.type.phase,
                     self.type.per, self.type.scee, self.type.scnb)
 
@@ -240,7 +240,7 @@ class AtomType(object):
         self.epsilon = float(epsilon)
 
     def __str__(self):
-        return '%s%6.3f' % (self.type.ljust(6), self.mass)
+        return '%s%8.5f' % (self.type.ljust(6), self.mass)
 
     def __eq__(self, other):
         return (self.type == other.type and self.mass == other.mass and
@@ -411,7 +411,7 @@ class ParameterSet(object):
         # Write the atom mass
         outfile.write('MASS\n')
         for atom in self.atoms:
-            outfile.write('%s%6.3f\n' % (atom.type.ljust(6), atom.mass))
+            outfile.write('%s%8.5f\n' % (atom.type.ljust(6), atom.mass))
         outfile.write('\n')
         # Write the bonds
         outfile.write('BOND\n')
